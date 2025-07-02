@@ -3,8 +3,7 @@ package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 import jakarta.persistence.*;
 
-// Changes from Local PC
-//Changes from FireBase
+
 @Entity
 public class Employee {
     @Id
