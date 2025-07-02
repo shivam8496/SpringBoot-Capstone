@@ -3,7 +3,7 @@ package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 import jakarta.persistence.*;
 
-
+// Changes from Local PC
 @Entity
 public class Employee {
     @Id
