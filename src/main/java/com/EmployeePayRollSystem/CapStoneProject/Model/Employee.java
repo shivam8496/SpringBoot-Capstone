@@ -109,7 +109,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", salary=" + salary +
-                ", department=" + department +
+                ", department=" + department.getName() +
                 ", bank=" + bank.getBankName() +
                 '}';
     }
