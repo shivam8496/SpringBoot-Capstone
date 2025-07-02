@@ -7,4 +7,13 @@ import jakarta.persistence.Id;
 public class Department {
     @Id
     private long id;
+    
+    private String name;
+    private String location;
+    
+    @OneToMany(mappedBy = "department")
+    private List<Employee> listOfEmployees;
+
+
+
 }
