@@ -2,7 +2,7 @@ package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 
 import jakarta.persistence.*;
-import org.hibernate.engine.jdbc.batch.spi.BatchKey;
+
 
 @Entity
 public class Employee {
