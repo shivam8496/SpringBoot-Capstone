@@ -198,3 +198,6 @@ README.html
 *.iml
 .idea
 .exercism
+
+##firebase
+.idx
