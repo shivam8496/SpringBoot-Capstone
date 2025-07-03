@@ -10,37 +10,29 @@ import java.util.List;
 public class Department {
     @Id
     private long id;
-    
-    private String name;
-    private String location;
-    
+
+    private String departmentName;
+
     @OneToMany(mappedBy = "department")
     private List<Employee> listOfEmployees;
 
-    public Department() {
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
     }
 
-    public Department(long id, String name, String location) {
+    public Department(long id, String departmentName) {
         this.id = id;
-        this.name = name;
-        this.location = location;
+        this.departmentName = departmentName;
     }
 
-    public Department(String name, String location) {
-        this.name = name;
-        this.location = location;
-    }
-
-    public Department(String name, String location, List<Employee> listOfEmployees) {
-        this.name = name;
-        this.location = location;
+    public Department(String departmentName, List<Employee> listOfEmployees) {
+        this.departmentName = departmentName;
         this.listOfEmployees = listOfEmployees;
     }
 
-    public Department(long id, String name, String location, List<Employee> listOfEmployees) {
+    public Department(long id, String departmentName, List<Employee> listOfEmployees) {
         this.id = id;
-        this.name = name;
-        this.location = location;
+        this.departmentName = departmentName;
         this.listOfEmployees = listOfEmployees;
     }
 
@@ -52,20 +44,12 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public List<Employee> getListOfEmployees() {

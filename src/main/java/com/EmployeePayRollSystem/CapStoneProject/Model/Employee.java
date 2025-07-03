@@ -14,7 +14,7 @@ public class Employee {
     private String email;
     private double salary;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
@@ -109,7 +109,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", salary=" + salary +
-                ", department=" + department.getName() +
+                ", department=" + department.getDepartmentName() +
                 ", bank=" + bank.getBankName() +
                 '}';
     }

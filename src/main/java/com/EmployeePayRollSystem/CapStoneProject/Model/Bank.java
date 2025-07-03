@@ -3,7 +3,10 @@ package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 import jakarta.persistence.*;
 
+
+
 import java.util.List;
+
 
 @Entity
 public class Bank {
@@ -11,11 +14,14 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long accountNumber;
 
+
     private String bankName;
     private String ifscCode;
 
     @OneToMany(mappedBy = "bank")
     List<Employee> employeeList;
+
+
 
 
     public Bank(String bankName, String ifscCode) {
