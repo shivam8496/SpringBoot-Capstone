@@ -23,13 +23,13 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req->req
                         .requestMatchers("/api/auth/signup","/api/auth/login","/login").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                .formLogin(req->req
-                        .loginPage("/api/auth/login")
-                        .defaultSuccessUrl("/api/employee/admin")
-                        .permitAll()
-                )
+//                .formLogin(req->req
+//                        .loginPage("/api/auth/login")
+//                        .defaultSuccessUrl("/api/employee/admin")
+//                        .permitAll()
+//                )
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
