@@ -5,11 +5,12 @@ import com.EmployeePayRollSystem.CapStoneProject.Model.Employee;
 import com.EmployeePayRollSystem.CapStoneProject.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
@@ -22,11 +23,12 @@ public class AuthController {
 
     @RequestMapping("/login")
     public String login(){
-        return "This is Login Page";
+        return "Login";
     }
 
+
     @RequestMapping("/signup")
-    public Employee signup(@RequestBody Employee employee){
-        return employeeService.addEmployee(employee);
+    public String signup(@RequestBody Employee employee){
+        return "Signup";
     }
 }
