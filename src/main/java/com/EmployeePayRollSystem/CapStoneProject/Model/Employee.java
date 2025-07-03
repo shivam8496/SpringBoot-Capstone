@@ -132,8 +132,8 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", salary=" + salary +
-                ", department=" + department.getDepartmentName() +
-                ", bank=" + bank.getBankName() +
+                ", department=" + (department != null ? department.getDepartmentName() : "null") +
+                ", bank=" + (bank != null ? bank.getBankName() : "null") +
                 '}';
     }
 }

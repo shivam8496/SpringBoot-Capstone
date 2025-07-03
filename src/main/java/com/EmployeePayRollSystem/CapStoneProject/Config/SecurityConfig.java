@@ -22,15 +22,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req->req
-                        .requestMatchers("/api/auth/signup","/api/auth/login","/login").permitAll()
+                        .requestMatchers("/auth/**","/login").permitAll()
                         .anyRequest().permitAll()
                 )
-//                .formLogin(req->req
-//                        .loginPage("/api/auth/login")
-//                        .defaultSuccessUrl("/api/employee/admin")
-//                        .permitAll()
-//                )
-                .httpBasic(Customizer.withDefaults())
+                .formLogin(req->req
+                        .loginPage("/auth/")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/api/employee/admin/addemployee",true)
+                        .permitAll()
+                )
                 .build();
     }
 

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Employee</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+         .input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding-right: 40px; /* for the eye icon */
+            padding: 10px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Add New Employee</h2>
+    <form id="employeeForm">
+        <label for="name">Full Name</label>
+        <input type="text" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="text" name="email" required>
+
+        <!-- Password field -->
+        <label for="password">Password</label>
+        <div class="input-container">
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <!-- Confirm Password field -->
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-container">
+            <input type="password" name="confirmPassword" id="confirmPassword" required>
+        </div>
+
+        <p id="passwordMismatch" style="color: red; display: none;">⚠️ Passwords do not match</p>
+
+        <label for="salary">Salary</label>
+        <input type="number" name="salary" step="0.01" required>
+
+        <label for="departmentId">Select Department</label>
+        <select name="departmentId" required>
+            <option value="">-- Select Department --</option>
+            <option th:each="dept : ${departments}"
+                    th:value="${dept.id}"
+                    th:text="${dept.departmentName}">
+            </option>
+        </select>
+
+        <label for="bankAccountNumber">Select Bank</label>
+        <select name="bankAccountNumber" required>
+            <option value="">-- Select Bank --</option>
+            <option th:each="bank : ${banks}"
+                    th:value="${bank.accountNumber}"
+                    th:text="${bank.bankName + ' (' + bank.ifscCode + ')'}">
+            </option>
+        </select>
+
+        <input type="submit" value="Add Employee">
+    </form>
+</div>
+
+<script>
+
+
+    document.getElementById("employeeForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const form = e.target;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+
+        if (password !== confirmPassword) {
+            document.getElementById("passwordMismatch").style.display = "block";
+            return;
+        } else {
+            document.getElementById("passwordMismatch").style.display = "none";
+        }
+
+        const data = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value,
+            salary: parseFloat(form.salary.value),
+        };
+
+        const departmentId = parseInt(form.departmentId.value);
+        const bankId = parseInt(form.bankAccountNumber.value);
+
+        fetch(`/api/employee/addemployee/${bankId}:${departmentId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.text())
+        .then(message => {
+
+            alert(message);
+            window.location.href = "/admin"; // redirect to employee list
+        })
+        .catch(err => {
+            alert("Error: " + err.message);
+        });
+    });
+</script>
+
+</body>
+</html>
