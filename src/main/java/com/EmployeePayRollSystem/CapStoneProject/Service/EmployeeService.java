@@ -33,10 +33,16 @@ public class EmployeeService {
 
 
     public Employee findByEmail(String email){
-        Employee emp = employeeRepository.findByEmail(email)
-                .orElseThrow(()->  new RuntimeException("Employee with name ==>"+email+" Not Found"));
-        System.out.println("Found by Email "+ emp);
-        return emp;
+        Optional<Employee> optionalEmployee = employeeRepository.findByEmail(email);
+
+        if (optionalEmployee.isEmpty()) {
+            System.out.println("User with email " + email + " Not found");
+            return null; // Return null if no employee is found
+        } else {
+            Employee emp = optionalEmployee.get();
+            System.out.println("Found by Email " + emp);
+            return emp;
+        }
     }
 
     public Employee addEmployee(Employee employee){
