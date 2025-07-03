@@ -18,7 +18,7 @@ public class Bank {
     private String bankName;
     private String ifscCode;
 
-    @OneToMany(mappedBy = "bank")
+    @OneToMany
     List<Employee> employeeList;
 
 
@@ -67,13 +67,13 @@ public class Bank {
         this.employeeList = employeeList;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Bank{" +
-//                "accountNumber=" + accountNumber +
-//                ", bankName='" + bankName + '\'' +
-//                ", ifscCode='" + ifscCode + '\'' +
-//                ", employeeList=" + employeeList +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "accountNumber=" + accountNumber +
+                ", bankName='" + bankName + '\'' +
+                ", ifscCode='" + ifscCode + '\'' +
+                ", employeeList=" + employeeList +
+                '}';
+    }
 }

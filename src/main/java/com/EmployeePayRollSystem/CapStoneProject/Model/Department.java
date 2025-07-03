@@ -13,7 +13,7 @@ public class Department {
 
     private String departmentName;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany
     private List<Employee> listOfEmployees;
 
     public  Department(){}
@@ -59,5 +59,14 @@ public class Department {
 
     public void setListOfEmployees(List<Employee> listOfEmployees) {
         this.listOfEmployees = listOfEmployees;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", departmentName='" + departmentName + '\'' +
+                ", listOfEmployees=" + listOfEmployees +
+                '}';
     }
 }

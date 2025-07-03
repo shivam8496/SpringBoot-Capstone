@@ -27,7 +27,6 @@ public class AuthController {
 
     @RequestMapping("/signup")
     public Employee signup(@RequestBody Employee employee){
-
         return employeeService.addEmployee(employee);
     }
 }

@@ -17,8 +17,12 @@ public class MyEmployeeDetailService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Employee employee = employeeService.findByEmail(email);
         if(employee==null){
-            System.out.println("User with email " + email + " Not found");
-            throw new UsernameNotFoundException("User Not Found Exception");
+            employee = employeeService.findByName(email).getFirst();
+            if(employee==null) {
+                System.out.println("User with email " + email + " Not found");
+                throw new UsernameNotFoundException("User Not Found Exception");
+            }
+            return new MyEmployeeDetails(employee);
         }
         return new MyEmployeeDetails(employee);
     }

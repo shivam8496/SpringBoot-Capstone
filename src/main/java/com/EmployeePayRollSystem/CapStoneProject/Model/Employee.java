@@ -124,16 +124,16 @@ public class Employee {
         this.bank = bank;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Employee{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", email='" + email + '\'' +
-//                ", password='" + password + '\'' +
-//                ", salary=" + salary +
-//                ", department=" + department.getDepartmentName() +
-//                ", bank=" + bank.getBankName() +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", salary=" + salary +
+                ", department=" + department.getDepartmentName() +
+                ", bank=" + bank.getBankName() +
+                '}';
+    }
 }
