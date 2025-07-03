@@ -18,17 +18,16 @@ public class AuthController {
 
     @RequestMapping("/")
     public String loginOrSignup(){
-        return "Login Or SignUp Page";
+        return "login";
     }
 
     @RequestMapping("/login")
     public String login(){
-        return "Login";
+        return "login";
     }
-
 
     @RequestMapping("/signup")
     public String signup(@RequestBody Employee employee){
-        return "Signup";
+        return "signup";
     }
 }
