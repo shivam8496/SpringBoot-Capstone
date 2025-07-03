@@ -33,12 +33,10 @@ public class EmployeeService {
     }
 
     public Employee findByEmail(String email){
-        List<Employee> emps = employeeRepository.findByName(email)
+        Employee emp = employeeRepository.findByEmail(email)
                 .orElseThrow(()->  new RuntimeException("Employee with name ==>"+email+" Not Found"))
-                .stream()
-                .toList();
-        if(emps.size()>1) throw  new RuntimeException("Found more than One Employee with same Email Id");
-        return emps.getFirst();
+        System.out.println("Found by Email "+ emp);
+        return emp;
     }
 
     public Employee addEmployee(Employee employee){
