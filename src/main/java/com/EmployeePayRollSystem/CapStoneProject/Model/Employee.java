@@ -12,6 +12,7 @@ public class Employee {
 
     private String name;
     private String email;
+    private  String password;
     private double salary;
 
     @ManyToOne
@@ -25,33 +26,46 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String email, double salary) {
+    public Employee(String name, String email, String password, double salary, Department department) {
         this.name = name;
         this.email = email;
-        this.salary = salary;
-    }
-
-    public Employee(String name, String email, double salary, Bank bank) {
-        this.name = name;
-        this.email = email;
-        this.salary = salary;
-        this.bank = bank;
-    }
-
-    public Employee(String name, String email, double salary, Department department) {
-        this.name = name;
-        this.email = email;
+        this.password = password;
         this.salary = salary;
         this.department = department;
     }
 
-    public Employee(long id, String name, String email, double salary, Department department, Bank bank) {
+    public Employee(String name, String email, String password, double salary, Bank bank) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.salary = salary;
+        this.bank = bank;
+    }
+
+    public Employee(String name, String email, String password, double salary, Department department, Bank bank) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.salary = salary;
+        this.department = department;
+        this.bank = bank;
+    }
+
+    public Employee(long id, String name, String email, String password, double salary, Department department, Bank bank) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.salary = salary;
         this.department = department;
         this.bank = bank;
+    }
+
+    public Employee(String name, String email, String password, double salary) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.salary = salary;
     }
 
     public long getId() {
@@ -76,6 +90,14 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public double getSalary() {
@@ -108,6 +130,7 @@ public class Employee {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", salary=" + salary +
                 ", department=" + department.getDepartmentName() +
                 ", bank=" + bank.getBankName() +
