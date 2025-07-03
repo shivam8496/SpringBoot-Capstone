@@ -22,8 +22,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req->req
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/auth/**","/login").permitAll()
+                        .anyRequest().permitAll()
+                )
+                .formLogin(req->req
+                        .loginPage("/api/auth/login")
+                        .defaultSuccessUrl("/api/employee/admin")
+                        .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .build();
