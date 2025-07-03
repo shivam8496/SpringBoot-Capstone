@@ -22,7 +22,7 @@ public class Bank {
     List<Employee> employeeList;
 
 
-
+    public Bank(){}
 
     public Bank(String bankName, String ifscCode) {
         this.bankName = bankName;
@@ -67,13 +67,13 @@ public class Bank {
         this.employeeList = employeeList;
     }
 
-    @Override
-    public String toString() {
-        return "Bank{" +
-                "accountNumber=" + accountNumber +
-                ", bankName='" + bankName + '\'' +
-                ", ifscCode='" + ifscCode + '\'' +
-                ", employeeList=" + employeeList +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Bank{" +
+//                "accountNumber=" + accountNumber +
+//                ", bankName='" + bankName + '\'' +
+//                ", ifscCode='" + ifscCode + '\'' +
+//                ", employeeList=" + employeeList +
+//                '}';
+//    }
 }
