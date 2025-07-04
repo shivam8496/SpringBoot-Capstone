@@ -124,7 +124,12 @@ public class AdminController {
         System.out.println("============ After Deleting Employee ID: " + id + " ================================");
         return "redirect:/admin/";
     }
-
+    @PostMapping("/deletebank/{id}")
+    public String deleteBank(@PathVariable("id") long id){
+        Bank bank = bankService.findBankById(id);
+        bankService.deleteBankById(id);
+        return "redirect:/admin/";
+    }
 
     @GetMapping("/viewbanks")
     public String viewBanks(Model model){
@@ -204,7 +209,7 @@ public ResponseEntity<String> editPostBank(@PathVariable("id") long id,
     public String deleteDepartment(@PathVariable("id") long id){
         Department department =departmentService.findDepartmentById(id);
         departmentService.deleteDepartmentById(id);
-        return "view/viewDepartments";
+        return "redirect:/admin/";
     }
 
     @GetMapping("/adddepartment")

@@ -49,6 +49,7 @@ local.properties
 
 # sbteclipse plugin
 .target
+.traget/
 
 # Tern plugin
 .tern-project
@@ -161,6 +162,7 @@ $RECYCLE.BIN/
 
 ### IntelliJ IDEA ###
 .idea
+.idea/
 *.iws
 *.iml
 *.ipr
