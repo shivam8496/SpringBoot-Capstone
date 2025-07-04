@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Department</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Edit Department</h2>
+    <form id="editDepartment">
+        <label for="departmentname">Department Name</label>
+        <input type="text" id="departmentname" name="departmentname" th:value="${department.departmentName}" required>
+
+        <div class="action-buttons">
+            <a id="backBtn" class="btn btn-back">🔙 Back</a>
+            <button type="submit" class="btn btn-save">💾 Save Changes</button>
+        </div>
+    </form>
+</div>
+
+<input type="hidden" id="departmentId" th:value="${department.id}">
+
+<script>
+    // Set back button path
+    document.getElementById("backBtn").href = `/admin/viewdepartments`;
+
+    // Handle form submission
+    document.getElementById("editDepartment").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const departmentId = document.getElementById("departmentId").value;
+        const name = document.getElementById("departmentname").value;
+
+        const data = {
+            departmentname: name
+        };
+
+        fetch(`/admin/editdepartment/${departmentId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (res.ok) {
+                alert("Department updated successfully!");
+                window.location.href = "/admin/viewdepartments";
+            } else {
+                return res.text().then(msg => {
+                    console.error("Error: " + msg);
+                    alert("Failed to update department.");
+                });
+            }
+        })
+        .catch(err => {
+            console.error("Error occurred:", err);
+            alert("Something went wrong while updating the department.");
+        });
+    });
+</script>
+
+</body>
+</html>

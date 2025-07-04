@@ -1,6 +1,8 @@
 package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -17,10 +19,12 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
+    @JsonBackReference(value = "department-employee")
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "bank_account_number")
+    @JsonBackReference(value = "bank-employee")
     private Bank bank;
 
     public Employee() {

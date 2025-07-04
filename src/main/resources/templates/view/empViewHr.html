@@ -75,6 +75,7 @@
         <th>Salary</th>
         <th>Department</th>
         <th>Bank</th>
+        <th>Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -85,11 +86,20 @@
         <td th:text="${emp.salary}">50000</td>
         <td th:text="${emp.department != null ? emp.department.departmentName : 'N/A'}">HR</td>
         <td th:text="${emp.bank != null ? emp.bank.bankName : 'N/A'}">HDFC</td>
+        <td><a th:href="@{'/hr/editemployee/' + ${emp.id}}" class="btn btn-edit">✏️ Edit</a></td>
     </tr>
     </tbody>
 </table>
-<div class="action-buttons">
-    <a href="/api/employee/addemployee" class="btn btn-add">➕ Add Employee</a>
+
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div class="action-buttons">
+        <a href="/hr/addemployee" class="btn btn-add">➕ Add Employee</a>
+    </div>
+    <form th:action="@{/logout}" method="post" style="margin-top: 10px">
+        <button type="submit" class="btn btn-logout" style="background-color: #6c757d; color: white;">🔒 Logout</button>
+    </form>
 </div>
+
 </body>
 </html>

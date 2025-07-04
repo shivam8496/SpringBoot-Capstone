@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Employee</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Edit Bank</h2>
+    <form id="editBank">
+        <label for="name">Name</label>
+        <input type="text" id ="bankname" name="name" th:value="${bank.bankName}" >
+
+        <label for="IFSC">IFSC Code</label>
+        <input type="text" id ="ifsccode" name="text" th:value="${bank.ifscCode}" >
+
+        <div class="action-buttons">
+            <a id="backBtn"   class="btn btn-back">🔙 Back</a>
+            <button type="submit" class="btn btn-save">💾 Save Changes</button>
+        </div>
+    </form>
+</div>
+<input type="hidden" id="bankaccountNumber" th:value="${bank.accountNumber}">
+
+<script>
+    function goback() {
+        window.location.href = "/admin/viewbanks";
+    }
+    document.getElementById("backBtn").addEventListener("click", goback);
+    // Handle form submission
+    document.getElementById("editBank").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const bankName = document.getElementById("bankname").value;
+    const ifscCode = document.getElementById("ifsccode").value;
+    const bankId = document.getElementById("bankaccountNumber").value;
+
+    const data = {
+        bankname: bankName,
+        ifsccode: ifscCode
+    };
+
+    fetch(`/admin/editbank/${bankId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (res.ok) {
+            alert("Bank updated successfully!");
+            window.location.href = `/admin/viewbanks`;
+        } else {
+            return res.text().then(msg => {
+                console.error("Error: " + msg);
+                alert("Failed to update Bank.");
+            });
+        }
+    })
+    .catch(err => {
+        console.error("Error occurred:", err);
+        alert("Something went wrong while updating the bank.");
+    });
+});
+
+</script>
+
+</body>
+</html>

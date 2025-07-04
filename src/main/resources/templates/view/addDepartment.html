@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Department</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Add Department</h2>
+    <form id="addDepartment" method="post">
+        <label for="departmentName">Department Name</label>
+        <input type="text" name="departmentName" id="departmentName" placeholder="e.g. HR, Sales, IT" required>
+
+        <div class="actions">
+            <a th:href="@{/admin/viewdepartments}" class="btn btn-back">🔙 Back</a>
+            <button type="submit" class="btn">➕ Add Department</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("addDepartment").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const departmentName = document.getElementById("departmentName").value;
+
+        const data = {
+            departmentName: departmentName
+        };
+
+        fetch("/admin/adddepartment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.text())
+        .then(message => {
+            alert(message);
+            window.location.href = "/admin/viewdepartments";
+        })
+        .catch(err => {
+            console.error("Exception occurred: " + err.message);
+            alert("Failed to add department.");
+        });
+    });
+</script>
+</body>
+</html>

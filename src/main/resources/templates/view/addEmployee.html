@@ -89,16 +89,16 @@
         <!-- Password field -->
         <label for="password">Password</label>
         <div class="input-container">
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" onchange="verifyPassword()" required>
         </div>
 
         <!-- Confirm Password field -->
         <label for="confirmPassword">Confirm Password</label>
         <div class="input-container">
-            <input type="password" name="confirmPassword" id="confirmPassword" required>
+            <input type="password" name="confirmPassword" id="confirmPassword" onchange="verifyPassword()" required>
         </div>
 
-        <p id="passwordMismatch" style="color: red; display: none;">⚠️ Passwords do not match</p>
+        <p id="passwordMismatch" style="color: red; display: none; ">⚠️ Passwords do not match</p>
 
         <label for="salary">Salary</label>
         <input type="number" name="salary" step="0.01" required>
@@ -126,21 +126,24 @@
 </div>
 
 <script>
-
-
-    document.getElementById("employeeForm").addEventListener("submit", function(e) {
-        e.preventDefault(); // Prevent default form submission
-
-        const form = e.target;
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-
+    function verifyPassword(){
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
         if (password !== confirmPassword) {
             document.getElementById("passwordMismatch").style.display = "block";
-            return;
+            return false;
         } else {
             document.getElementById("passwordMismatch").style.display = "none";
+            return true;
         }
+    }
+
+    document.getElementById("employeeForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const isValid = verifyPassword();
+        if (!isValid) return;
 
         const data = {
             name: form.name.value,
@@ -152,7 +155,10 @@
         const departmentId = parseInt(form.departmentId.value);
         const bankId = parseInt(form.bankAccountNumber.value);
 
-        fetch(`/api/employee/addemployee/${bankId}:${departmentId}`, {
+        // 🔍 Extract base path from current URL (/admin or /hr)
+        const basePath = window.location.pathname.split("/")[1];  // "admin" or "hr"
+
+        fetch(`/${basePath}/addemployee/${bankId}:${departmentId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -161,15 +167,15 @@
         })
         .then(res => res.text())
         .then(message => {
-
             alert(message);
-            window.location.href = "/admin"; // redirect to employee list
+            window.location.href = `/${basePath}/`;  // Redirect to /admin/ or /hr/
         })
         .catch(err => {
-            alert("Error: " + err.message);
+            console.log("Exception " + err.message);
         });
     });
 </script>
+
 
 </body>
 </html>

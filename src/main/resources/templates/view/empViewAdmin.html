@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Directory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 14px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Employees</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th>Bank</th>
+        <th>Edit</th>
+        <th>Delete Employee</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp : ${employees}">
+        <td th:text="${emp.id}">1</td>
+        <td th:text="${emp.name}">John</td>
+        <td th:text="${emp.email}">john@example.com</td>
+        <td th:text="${emp.salary}">50000</td>
+        <td th:text="${emp.department != null ? emp.department.departmentName : 'N/A'}">HR</td>
+        <td th:text="${emp.bank != null ? emp.bank.bankName : 'N/A'}">HDFC</td>
+        <td><a th:href="@{'/admin/editemployee/' + ${emp.id}}" class="btn btn-edit">✏️ Edit</a></td>
+        <td>
+            <form th:action="@{'/admin/deleteemployee/' + ${emp.id}}" method="post"
+                  th:object="${emp}"
+                  onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                <button type="submit" class="btn btn-delete">🗑️ Delete</button>
+            </form>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div class="action-buttons">
+        <a href="/admin/addemployee" class="btn btn-add">➕ Add Employee</a>
+    </div>
+    <div class="action-buttons">
+        <a href="/admin/viewdepartments" class="btn btn-logout" style="background-color: #6c757d; color: white;">✏️ view Departments</a>
+    </div>
+    <div class="action-buttons">
+        <a href="/admin/viewbanks" class="btn btn-logout" style="background-color: #6c757d; color: white;">✏️ view Banks</a>
+    </div>
+    <form th:action="@{/logout}" method="post" style="margin-top: 10px">
+        <button type="submit" class="btn btn-logout" style="background-color: #6c757d; color: white;">🔒 Logout</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.EmployeePayRollSystem.CapStoneProject.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -18,8 +20,10 @@ public class Bank {
     private String bankName;
     private String ifscCode;
 
-    @OneToMany
-    List<Employee> employeeList;
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "bank-employee")
+    private List<Employee> employeeList;
 
 
     public Bank(){}

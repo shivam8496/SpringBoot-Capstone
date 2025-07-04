@@ -1,123 +1,123 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Dynamic Employee Signup</title>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Dynamic Employee Signup</title>
+        <meta charset="UTF-8">
+        <style>
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f0f2f5;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
 
-        .signup-container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            width: 500px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
+            .signup-container {
+                background: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                width: 500px;
+                box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #333;
+            }
 
-        label {
-            display: block;
-            margin-top: 10px;
-            color: #444;
-        }
+            label {
+                display: block;
+                margin-top: 10px;
+                color: #444;
+            }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
+            input[type="text"],
+            input[type="password"],
+            input[type="number"],
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+            }
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+            input[type="submit"] {
+                width: 100%;
+                padding: 12px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-weight: bold;
+                margin-top: 20px;
+            }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
 
-<div class="signup-container">
-    <h2>Employee Signup</h2>
-    <form th:action="@{/auth/signup}" method="post">
-        <label>Name</label>
-        <input type="text" name="name" required>
+    <div class="signup-container">
+        <h2>Employee Signup</h2>
+        <form th:action="@{/auth/signup}" method="post">
+            <label>Name</label>
+            <input type="text" name="name" required>
 
-        <label>Email</label>
-        <input type="text" name="email" required>
+            <label>Email</label>
+            <input type="text" name="email" required>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
 
-        <label>Salary</label>
-        <input type="number" name="salary" step="0.01" required>
+            <label>Salary</label>
+            <input type="number" name="salary" step="0.01" required>
 
-        <label>Select Department</label>
-        <select name="departmentId" id="departmentDropdown" required>
-            <option value="">-- Select Department --</option>
-        </select>
+            <label>Select Department</label>
+            <select name="departmentId" id="departmentDropdown" required>
+                <option value="">-- Select Department --</option>
+            </select>
 
-        <label>Select Bank Account</label>
-        <select name="bankAccountNumber" id="bankDropdown" required>
-            <option value="">-- Select Bank --</option>
-        </select>
+            <label>Select Bank Account</label>
+            <select name="bankAccountNumber" id="bankDropdown" required>
+                <option value="">-- Select Bank --</option>
+            </select>
 
-        <input type="submit" value="Sign Up">
-    </form>
-</div>
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
 
-<script>
-    // Load departments
-    fetch('/api/departments')
-        .then(res => res.json())
-        .then(data => {
-            const deptDropdown = document.getElementById('departmentDropdown');
-            data.forEach(dept => {
-                const option = document.createElement('option');
-                option.value = dept.id;
-                option.textContent = dept.departmentName;
-                deptDropdown.appendChild(option);
+    <script>
+        // Load departments
+        fetch('/employee/getdepartments')
+            .then(res => res.json())
+            .then(data => {
+                const deptDropdown = document.getElementById('departmentDropdown');
+                data.forEach(dept => {
+                    const option = document.createElement('option');
+                    option.value = dept.id;
+                    option.textContent = dept.departmentName;
+                    deptDropdown.appendChild(option);
+                });
             });
-        });
 
-    // Load banks
-    fetch('http://localhost:8080/api/employee/admin/getBanks')
-        .then(res => res.json())
-        .then(data => {
-            const bankDropdown = document.getElementById('bankDropdown');
-            data.forEach(bank => {
-                const option = document.createElement('option');
-                option.value = bank.accountNumber;
-                option.textContent = `${bank.bankName} (${bank.ifscCode})`;
-                bankDropdown.appendChild(option);
+        // Load banks
+        fetch('/employee/getbanks')
+            .then(res => res.json())
+            .then(data => {
+                const bankDropdown = document.getElementById('bankDropdown');
+                data.forEach(bank => {
+                    const option = document.createElement('option');
+                    option.value = bank.accountNumber;
+                    option.textContent = `${bank.bankName} (${bank.ifscCode})`;
+                    bankDropdown.appendChild(option);
+                });
             });
-        });
-</script>
+    </script>
 
-</body>
-</html>
+    </body>
+    </html>
