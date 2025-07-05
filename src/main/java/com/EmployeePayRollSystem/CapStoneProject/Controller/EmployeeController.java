@@ -51,9 +51,9 @@ public class EmployeeController {
         List<Double> salaryDetails = bankService.calculateTaxAndNetSalary(employee);
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("employee", employee);
-        model.addAttribute("tax",salaryDetails.getFirst());
+        model.addAttribute("tax",salaryDetails.get(0));
         model.addAttribute("taxpercentage",salaryDetails.get(1));
-        model.addAttribute("netSalary",salaryDetails.getLast());
+        model.addAttribute("netSalary",salaryDetails.get(salaryDetails.size()-1));
         model.addAttribute("banks",bankService.bankList());
         return "view/employeeDashboard.html";
     }
