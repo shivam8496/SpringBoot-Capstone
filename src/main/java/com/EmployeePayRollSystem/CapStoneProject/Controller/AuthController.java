@@ -64,7 +64,7 @@ public class AuthController {
             employee.setBank(bank);
 
             // 3. Encrypt password
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
             employee.setPassword(encoder.encode(password));
 
             // 4. Save employee

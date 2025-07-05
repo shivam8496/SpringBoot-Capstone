@@ -32,7 +32,7 @@ public class HRController {
     @Autowired
     public BankService bankService;
 
-    private BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(5);
 
     @GetMapping("/")
     public String showEmployee(Model model){

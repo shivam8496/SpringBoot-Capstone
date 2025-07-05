@@ -40,7 +40,7 @@ public class EmployeeController {
     public BankService bankService;
 
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
 
     @GetMapping("/")
     public String showDashboard(Model model, Authentication authentication) {
