@@ -44,6 +44,7 @@ public class EmployeeController {
 
     @GetMapping("/")
     public String showDashboard(Model model, Authentication authentication) {
+        System.out.println("=====================Employee Rendering started========================================");
         MyEmployeeDetails userDetails = (MyEmployeeDetails) authentication.getPrincipal();
         long employeeId = userDetails.getEmployeeId();
 
@@ -55,6 +56,8 @@ public class EmployeeController {
         model.addAttribute("taxpercentage",salaryDetails.get(1));
         model.addAttribute("netSalary",salaryDetails.get(salaryDetails.size()-1));
         model.addAttribute("banks",bankService.bankList());
+        System.out.println("=====================Employee Rendering Done========================================");
+        System.out.println("Rendering employeeDashboard for: " + employee.getName());
         return "view/employeeDashboard.html";
     }
 
