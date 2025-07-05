@@ -36,7 +36,8 @@
                             .requestMatchers("/auth/**", "/login", "/logout").permitAll()
                             .requestMatchers("/hr/**").hasAnyRole("HR","ADMIN")
                             .requestMatchers("/admin/**").hasRole("ADMIN")
-                            .anyRequest().authenticated()
+                            .requestMatchers("/employee/**").authenticated()
+                            .anyRequest().permitAll()
                     )
                     .formLogin(form -> form
                             .loginPage("/auth/")
