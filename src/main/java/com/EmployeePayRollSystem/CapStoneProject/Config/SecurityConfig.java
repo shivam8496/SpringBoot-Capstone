@@ -34,7 +34,7 @@
                     .csrf(AbstractHttpConfigurer::disable) // CSRF disabled
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/auth/**", "/login", "/logout").permitAll()
-                            .requestMatchers("/hr/**").hasAnyRole("HR","ADMIN")
+                            .requestMatchers("/hr/**","/employee/**").hasAnyRole("HR","ADMIN")
                             .requestMatchers("/admin/**").hasRole("ADMIN")
 //                            .requestMatchers("/employee/**").permitAll()
                             .anyRequest().authenticated()
