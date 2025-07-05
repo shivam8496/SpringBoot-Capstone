@@ -58,7 +58,7 @@ public class EmployeeController {
         model.addAttribute("banks",bankService.bankList());
         System.out.println("=====================Employee Rendering Done========================================");
         System.out.println("Rendering employeeDashboard for: " + employee.getName());
-        return "view/employeeDashboard.html";
+        return "view/employeeDashboard";
     }
 
 
