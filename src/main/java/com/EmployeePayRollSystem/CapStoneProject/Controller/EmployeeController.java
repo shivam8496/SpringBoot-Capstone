@@ -43,14 +43,13 @@ public class EmployeeController {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
 
     @GetMapping("/")
-    public String showDashboard(Model model) {
+    public String showDashboard(Model model , Authentication authentication) {
         System.out.println("=====================Employee Rendering started========================================");
-//        MyEmployeeDetails userDetails = (MyEmployeeDetails) authentication.getPrincipal();
-//        long employeeId = userDetails.getEmployeeId();
-//, Authentication authentication
-        Employee employee = employeeService.findById(1); // if needed
+        MyEmployeeDetails userDetails = (MyEmployeeDetails) authentication.getPrincipal();
+        long employeeId = userDetails.getEmployeeId();
+        Employee employee = employeeService.findById(employeeId); // if needed
         List<Double> salaryDetails = bankService.calculateTaxAndNetSalary(employee);
-        model.addAttribute("employeeId", employee.getId());
+        model.addAttribute("employeeId", employeeId);
         model.addAttribute("employee", employee);
         model.addAttribute("tax",salaryDetails.get(0));
         model.addAttribute("taxpercentage",salaryDetails.get(1));
@@ -58,7 +57,7 @@ public class EmployeeController {
         model.addAttribute("banks",bankService.bankList());
         System.out.println("=====================Employee Rendering Done========================================");
         System.out.println("Rendering employeeDashboard for: " + employee.getName());
-        return "view/employeeDashboard";
+        return "view/newfile";
     }
 
 
